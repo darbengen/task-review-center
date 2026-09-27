@@ -1,0 +1,23 @@
+{
+  "name": "task-review-center",
+  "version": "0.1.0+share.20260927.pin",
+  "description": "当前应用内的 Work / Codex 任务审查与 ChatGPT 聊天中心。",
+  "author": {
+    "name": "darben"
+  },
+  "interface": {
+    "displayName": "任务中心",
+    "shortDescription": "待审查、已完成与 Chat 聊天，三栏同时展示。",
+    "longDescription": "在当前应用中打开任务中心；Work / Codex 任务自动登记、确认与归档，Chat 聊天随应用目录更新并单独审查。",
+    "developerName": "darben",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "打开任务中心"
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

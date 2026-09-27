@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "task-review-center": {
+      "command": "python3",
+      "args": [
+        "RUN_PREPARE_FIRST/scripts/launcher.py"
+      ]
+    }
+  }
+}
