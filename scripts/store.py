@@ -28,7 +28,7 @@ def validate(data):
             raise invalid
         if not timestamp(record.get('registeredAt')):
             raise invalid
-        for field in ('confirmedAt', 'reviewedUpdatedAt'):
+        for field in ('confirmedAt', 'reviewedUpdatedAt', 'pendingSince'):
             if record.get(field) is not None and not timestamp(record[field]):
                 raise invalid
         if not isinstance(record.get('note', ''), str) or type(record.get('starred', False)) is not bool:
@@ -107,7 +107,7 @@ class Store:
             # Retention cleanup must not turn an acknowledged atomic save into a failed action.
             pass
 
-    def sync(self, tasks, started_at=None, *, source=None):
+    def sync(self, tasks, started_at=None, *, source=None, workflow=False):
         with self.lock():
             data = self.read()
             # An older catalog request must not replace a newer successful catalog.
@@ -118,7 +118,10 @@ class Store:
                 data['reviews'].setdefault(task['id'], {
                     'status': 'pending', 'revision': 0, 'registeredAt': now,
                     'confirmedAt': None, 'reviewedUpdatedAt': None, 'note': '', 'starred': False,
+                    **({'pendingSince': max(task['updatedAt'], task.get('execution', {}).get('endedAt', 0))} if workflow else {}),
                 })
+            if workflow:
+                self._workflow(data, tasks, now)
             data['tasks'] = tasks
             data['syncedAt'] = now
             data['syncStartedAt'] = started_at if started_at is not None else now
@@ -126,6 +129,40 @@ class Store:
                 data['source'] = source
             data.pop('syncError', None)
             self.write(data)
+
+    @staticmethod
+    def _workflow(data, tasks, now):
+        previous = {task['id']: task for task in data['tasks']}
+        for task in tasks:
+            review = data['reviews'][task['id']]
+            before = dict(review)
+            # Reverse only the retired automatic rule; manual confirmations have no such marker.
+            if review.get('completionReason') == 'aged_30_days':
+                review.update(status='pending', confirmedAt=None, reviewedUpdatedAt=None)
+                review.pop('completionReason', None)
+            execution = task.get('execution', {})
+            state = execution.get('state', 'unknown')
+            old_execution = previous.get(task['id'], {}).get('execution', {})
+            activity = max(task['updatedAt'], execution.get('endedAt', 0))
+            # Manual reopen grants a fresh review window. Initial imports use actual activity.
+            pending_since = max(review.get('pendingSince', 0), activity)
+            run_at = execution.get('startedAt', execution.get('eventAt', 0))
+            if review['status'] == 'done' and state != 'unknown' and (state == 'running' or review.get('awaitingRunEnd') or run_at > (review.get('confirmedAt') or 0)):
+                review.update(status='pending', confirmedAt=None, reviewedUpdatedAt=None)
+                review.pop('completionReason', None)
+                pending_since = max(pending_since, run_at)
+            if (old_execution.get('state') == 'running' or review.get('awaitingRunEnd')) and state == 'idle':
+                # Includes an interrupted/crashed run; its result still needs review.
+                pending_since = max(pending_since, execution.get('endedAt') or now)
+            if state == 'running':
+                review['awaitingRunEnd'] = True
+            elif state == 'idle':
+                review.pop('awaitingRunEnd', None)
+            if review['status'] == 'pending':
+                review['pendingSince'] = pending_since
+            if review != before:
+                review['revision'] += 1
+                review.pop('undo', None)
 
     def sync_failed(self, message, started_at):
         with self.lock():
@@ -175,6 +212,8 @@ class Store:
             task = next((t for t in data['tasks'] if t['id'] == thread_id), None)
             if task is None:
                 raise ValueError('当前任务来源不可用，请刷新列表。')
+            if task.get('execution', {}).get('state') == 'running':
+                raise ValueError('任务仍在运行，请等它结束后再归档。')
             if not task.get('archived'):
                 self._record(data, thread_id, revision)
                 if task['updatedAt'] != updated_at:
@@ -214,10 +253,15 @@ class Store:
             current = next((t for t in data['tasks'] if t['id'] == thread_id), None)
             if current is None:
                 raise ValueError('当前任务来源不可用，请同步后再确认。')
+            if current.get('execution', {}).get('state') == 'running':
+                raise ValueError('任务仍在运行，结束后会自动进入待审查。')
             token = uuid.uuid4().hex
             value = dict(old, status=status, revision=revision + 1,
                          confirmedAt=time.time() if status == 'done' else None,
                          reviewedUpdatedAt=current['updatedAt'] if status == 'done' else None)
+            value.pop('completionReason', None)
+            if status == 'pending':
+                value['pendingSince'] = time.time()
             # Server-owned token restores the exact previous record, including confirmation time.
             value['undo'] = {'token': token, 'previous': {k: v for k, v in old.items() if k != 'undo'}}
             data['reviews'][thread_id] = value
@@ -232,6 +276,9 @@ class Store:
         with self.lock():
             data = self.read()
             current = self._record(data, thread_id, revision)
+            task = next((t for t in data['tasks'] if t['id'] == thread_id), {})
+            if task.get('execution', {}).get('state') == 'running':
+                raise ValueError('任务已开始运行，不能恢复旧审查状态。')
             action = current.get('undo')
             if not action or action['token'] != token:
                 raise ValueError('此操作已失效，不能覆盖更新后的审查记录。')

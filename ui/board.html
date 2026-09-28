@@ -3,15 +3,25 @@
 :root{color-scheme:light dark;--bg:light-dark(#fff,#202123);--panel:light-dark(#fff,#28292b);--text:light-dark(#252629,#eee);--muted:light-dark(#85868a,#a3a4a9);--line:light-dark(#e9e9eb,#393a3e);--orange:light-dark(#b76320,#eea559);--green:light-dark(#27804f,#75c992);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg)}*{box-sizing:border-box}html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.5}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--orange);outline-offset:3px}#app{height:100vh;height:100dvh;min-height:0;min-width:600px;overflow:hidden;display:flex;flex-direction:column}header,.filters,.filter-extra,#notice,#toast,.footer{flex-shrink:0}header{padding:30px 30px 22px}h1{font-size:26px;letter-spacing:-.6px;margin:0 0 10px;font-weight:650}.intro{font-size:13px;color:var(--muted);margin:0}.filters{display:flex;gap:12px;align-items:center;padding:0 30px 22px}input[type=search]{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:10px 12px;min-width:150px;flex:1;max-width:380px}select{max-width:180px;min-width:90px;padding:9px;border:1px solid var(--line);border-radius:8px;color:var(--text);background:var(--panel)}.archive{font-size:12px;display:flex;align-items:center;gap:4px;white-space:nowrap}.refresh{margin-left:auto}.quiet{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 12px;border-radius:7px;font-size:12px}.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);border-top:1px solid var(--line);flex:1 1 0;min-height:0;overflow:hidden}.column{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}.column+.column{border-left:1px solid var(--line)}.column-head{padding:23px 24px 18px;flex-shrink:0}.column-head h2{display:flex;gap:9px;align-items:center;font-size:17px;font-weight:600;margin:0}.dot{height:10px;width:10px;border:2px solid currentColor;border-radius:50%;display:inline-block}.done .dot{background:var(--green)}.count{font-size:12px;border-radius:20px;padding:3px 8px;background:color-mix(in srgb,currentColor 10%,transparent)}.column-head p{font-size:12px;color:var(--muted);margin:8px 0 0}.pending h2 .dot,.pending .count{color:var(--orange)}.done h2 .dot,.done .count{color:var(--green)}.cards{overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-gutter:stable;min-height:0;flex:1 1 0;padding:0 18px 22px;scrollbar-width:thin}.card{border:1px solid var(--line);border-radius:10px;padding:17px;margin-bottom:11px;background:var(--panel)}.title{font-size:14px;font-weight:550;line-height:1.6;background:none;border:0;padding:0;text-align:left;width:100%;overflow-wrap:anywhere;display:flex;gap:12px;align-items:flex-start;justify-content:space-between}.pending .title{color:var(--orange)}.done .title{color:var(--green)}.arrow{color:var(--muted);font-size:13px}.meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted);margin:13px 0}.project-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.date{white-space:nowrap}.actions{display:flex;justify-content:space-between;align-items:center;gap:8px}.status{font-size:11px;color:var(--muted)}.action{border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--text) 5%,var(--bg));color:var(--text);font-size:12px;padding:6px 12px}.empty{color:var(--muted);font-size:13px;text-align:center;padding:70px 20px;line-height:1.8}.empty b{display:block;font-size:30px;font-weight:300;margin-bottom:12px}.footer{display:flex;gap:12px;align-items:center;padding:10px 30px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.footer span:last-child{margin-left:auto}#notice{display:none;padding:12px 30px;background:color-mix(in srgb,var(--orange) 9%,var(--bg));font-size:13px;line-height:1.6}#toast{display:none;gap:12px;align-items:center;padding:12px 30px;border-top:1px solid var(--line);font-size:13px}#undo{border:0;background:none;color:var(--green);text-decoration:underline}#toast-close{margin-left:auto;background:none;border:0;color:var(--muted)}
 .filter-extra{display:flex;gap:10px;align-items:center;padding:0 30px 20px}.filter-extra select{max-width:220px;font-size:12px}.filters{padding-bottom:10px}.card-top{display:flex;align-items:flex-start;gap:6px}.star{padding:1px 4px;font-size:18px;border:0;background:none;color:var(--muted)}.star[aria-pressed=true]{color:var(--orange)}.text-button{border:0;background:none;padding:4px 0;color:var(--muted);font-size:12px;text-decoration:underline;text-underline-offset:3px}.text-button:hover{color:var(--text)}.note-preview{margin:0 0 13px;padding:9px 10px;border-radius:6px;background:color-mix(in srgb,var(--text) 4%,var(--bg));font-size:12px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere;max-height:100px;overflow:auto}.note-input{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text);font:inherit;font-size:12px;resize:vertical;min-height:65px}.note-actions{display:flex;justify-content:flex-end;gap:14px;margin:6px 0 14px}.changed{font-size:11px;color:var(--orange);margin:0 0 10px}.title{flex:1;min-width:0}.card:focus-within{border-color:color-mix(in srgb,var(--orange) 45%,var(--line))}@media(max-width:800px){header{padding:22px 20px 16px}.filters,.filter-extra{padding-left:20px;padding-right:20px;gap:8px}.column-head{padding-left:18px}.cards{padding-left:12px;padding-right:12px}.card{padding:13px}.archive{font-size:11px}}
 .action-group{display:flex;gap:8px;align-items:center}.archive-task{background:none;color:var(--muted)}.archive-task:hover{color:var(--text)}dialog{width:min(440px,calc(100% - 32px));max-height:calc(100% - 32px);overflow:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:14px;padding:24px;color:var(--text);background:var(--panel);box-shadow:0 12px 48px #0003}dialog::backdrop{background:#0005}dialog h2{margin:0 0 14px;font-size:19px}dialog p{font-size:13px;line-height:1.8;margin:12px 0;color:var(--muted)}#archive-title{font-size:14px;line-height:1.6;font-weight:550;overflow-wrap:anywhere;color:var(--text)}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}#archive-confirm{background:var(--text);color:var(--bg);border-color:var(--text)}#archive-error{color:var(--orange)}dialog button:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
-:root{--blue:light-dark(#3267bb,#8db5f6)}.board{grid-template-columns:repeat(3,minmax(0,1fr))}.chat .dot,.chat .count,.chat .title{color:var(--blue)}.chat .is-done .title{color:var(--green)}.chat .review-label{font-size:11px;color:var(--orange);margin:0 0 12px}.chat .is-done .review-label{color:var(--green)}.chat-controls{display:flex;gap:8px;align-items:center;padding:0 18px 14px;flex-shrink:0}.chat-controls select{width:100%;max-width:none;font-size:12px;padding:7px}.chat-sync{padding:9px 18px;border-top:1px solid var(--line);font-size:11px;line-height:1.5;color:var(--muted);flex-shrink:0;max-height:80px;overflow:auto}.chat-sync[data-error=true]{color:var(--orange)}.actions{flex-wrap:wrap}.action-group{flex-wrap:wrap;margin-left:auto}.column-head p{line-height:1.5}.chat .column-head{padding-bottom:12px}.empty{padding:32px 12px}.card{padding:14px}.cards{padding-left:12px;padding-right:12px}.footer{flex-wrap:wrap}.column-head{padding-left:18px;padding-right:18px}@media(max-width:800px){.column-head h2{font-size:15px;gap:6px}.column-head{padding:18px 12px 14px}.cards{padding-left:8px;padding-right:8px}.card{padding:11px}.meta{flex-wrap:wrap;gap:6px}.action{padding:6px 9px}.chat-controls,.chat-sync{padding-left:12px;padding-right:12px}}@media(max-width:620px){#app{min-width:0}.board{overflow-x:auto;grid-template-columns:repeat(3,minmax(210px,1fr))}.filters,.filter-extra{flex-wrap:wrap}.filters select{max-width:140px}.footer span:last-child{display:none}}
+:root{--blue:light-dark(#3267bb,#8db5f6)}.board{grid-template-columns:repeat(3,minmax(220px,1fr));overflow-x:auto}.chat .dot,.chat .count,.chat .title{color:var(--blue)}.chat .is-done .title{color:var(--green)}.chat .review-label{font-size:11px;color:var(--orange);margin:0 0 12px}.chat .is-done .review-label{color:var(--green)}.chat-controls{display:flex;gap:8px;align-items:center;padding:0 18px 14px;flex-shrink:0}.chat-controls select{width:100%;max-width:none;font-size:12px;padding:7px}.chat-sync{padding:9px 18px;border-top:1px solid var(--line);font-size:11px;line-height:1.5;color:var(--muted);flex-shrink:0;max-height:80px;overflow:auto}.chat-sync[data-error=true]{color:var(--orange)}.actions{flex-wrap:wrap}.action-group{flex-wrap:wrap;margin-left:auto}.column-head p{line-height:1.5}.chat .column-head{padding-bottom:12px}.empty{padding:32px 12px}.card{padding:14px}.cards{padding-left:12px;padding-right:12px}.footer{flex-wrap:wrap}.column-head{padding-left:18px;padding-right:18px}@media(max-width:800px){.column-head h2{font-size:15px;gap:6px}.column-head{padding:18px 12px 14px}.cards{padding-left:8px;padding-right:8px}.card{padding:11px}.meta{flex-wrap:wrap;gap:6px}.action{padding:6px 9px}.chat-controls,.chat-sync{padding-left:12px;padding-right:12px}}@media(max-width:620px){#app{min-width:0}.board{overflow-x:auto;grid-template-columns:repeat(3,minmax(220px,1fr))}.filters,.filter-extra{flex-wrap:wrap}.filters select{max-width:140px}.footer span:last-child{display:none}}
 .filter-summary{flex-shrink:0;margin:0;padding:0 30px 12px;color:var(--orange);font-size:12px;line-height:1.5}.filter-summary[hidden]{display:none}#catalog-summary{line-height:1.5}@media(max-width:800px){.filter-summary{padding-left:20px;padding-right:20px}}
-</style></head><body><main id="app">
-<header><h1>任务中心</h1><p class="intro" id="catalog-summary">正在核对任务与聊天总数…</p></header>
-<div class="filters"><input id="search" type="search" placeholder="搜索任务与聊天" aria-label="搜索任务与聊天"><select id="project" aria-label="Work / Codex 项目筛选"><option value="">全部项目</option></select><label class="archive"><input id="archived" type="checkbox">包含归档</label><button id="refresh" class="quiet refresh">刷新</button></div>
-<div class="filter-extra"><select id="focus" aria-label="审查范围"><option value="all">全部任务</option><option value="starred">只看置顶</option><option value="stale">7 天未更新的待审查</option><option value="changed">确认后有新进展</option></select><select id="sort" aria-label="待审查排序"><option value="recent">最近更新优先</option><option value="oldest">最久未审优先</option></select><button id="clear-filters" class="text-button" hidden>清除筛选</button></div>
+:root{--running:light-dark(#7651ad,#c0a1eb)}.running .dot,.running .count,.running .title{color:var(--running)}.running .dot{background:currentColor}.completion-controls{padding:0 18px 14px;flex-shrink:0}.completion-controls label{font-size:12px;display:flex;align-items:center;gap:6px}.execution-label,.auto-label{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 10px}.running .execution-label{color:var(--running)}
+@media(max-height:560px){header{padding:14px 20px 10px}h1{font-size:22px;margin-bottom:6px}.filters,.filter-extra{padding-bottom:8px}.filter-summary{padding-bottom:8px}.column-head{padding-top:12px;padding-bottom:10px}.column-head p{margin-top:6px}.completion-controls,.chat-controls{padding-bottom:8px}.footer{padding-top:7px;padding-bottom:7px}}
+@media(max-height:480px){header{padding:8px 20px}h1{font-size:18px;margin-bottom:4px}.filters input[type=search]{padding-top:7px;padding-bottom:7px}.filters select,.filter-extra select{padding-top:6px;padding-bottom:6px}.column-head p{display:none}.chat-sync{max-height:35px;padding-top:4px;padding-bottom:4px}.column-head{padding-top:10px;padding-bottom:10px}}
+
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:16px}.header-row h1{margin-bottom:0}.header-row+.intro{margin-top:10px}.view-button{white-space:nowrap;color:var(--blue)}#view-title:focus{outline:none}
+#app[data-view=work] .column.chat,#app[data-view=chat] .column:not(.chat),#app[data-view=chat] .work-control{display:none}
+#app[data-view=chat] .board{grid-template-columns:minmax(0,1fr)}#app[data-view=chat] .chat{border-left:0}
+#app[data-view=chat] .chat>.cards,#app[data-view=chat] .chat>.column-head,#app[data-view=chat] .chat>.chat-controls,#app[data-view=chat] .chat>.chat-sync{width:100%;max-width:1000px;margin-inline:auto}
+#app[data-view=chat] .chat-controls select{max-width:220px}#app[data-view=chat] .chat .cards{padding-top:4px}
+@media(max-height:480px){.header-row+.intro{margin-top:6px}}
+#app[data-view="work"] #sort{display:none}</style></head><body><main id="app" data-view="work">
+<header><div class="header-row"><h1 id="view-title" tabindex="-1">任务中心</h1><button id="chat-view" class="quiet view-button" aria-controls="task-board">聊天任务 →</button><button id="work-view" class="quiet view-button" aria-controls="task-board" hidden>← 返回任务中心</button></div><p class="intro" id="catalog-summary">正在核对任务与聊天总数…</p></header>
+<div class="filters"><input id="search" type="search" placeholder="搜索任务" aria-label="搜索任务"><select class="work-control" id="project" aria-label="Work / Codex 项目筛选"><option value="">全部项目</option></select><label class="archive work-control"><input id="archived" type="checkbox">包含归档</label><button id="refresh" class="quiet refresh">刷新</button></div>
+<div class="filter-extra"><select id="focus" aria-label="审查范围"><option value="all">全部任务</option><option value="starred">只看置顶</option><option value="stale">7 天未对话的待审查</option><option value="changed">确认后有新进展</option></select><select id="sort" aria-label="待审查排序"><option value="recent">最近更新优先</option><option value="oldest">最久未审优先</option></select><button id="clear-filters" class="text-button" hidden>清除筛选</button></div>
 <p id="filter-summary" class="filter-summary" role="status" hidden></p>
 <div id="notice" role="alert" title="点击关闭操作提示"></div>
-<div class="board"><section class="column pending"><div class="column-head"><h2><i class="dot"></i>待审查 <span class="count" id="pending-count">0</span></h2><p>Work / Codex · 等你确认</p></div><div class="cards" id="pending" role="region" aria-label="待审查任务" tabindex="0"></div></section><section class="column done"><div class="column-head"><h2><i class="dot"></i>已完成 <span class="count" id="done-count">0</span></h2><p>Work / Codex · 已确认成果</p></div><div class="cards" id="done" role="region" aria-label="已完成任务" tabindex="0"></div></section><section class="column chat"><div class="column-head"><h2><i class="dot"></i>聊天 <span class="count" id="chat-count">0</span></h2><p>ChatGPT Chat · 当前账号</p></div><div class="chat-controls"><select id="chat-status" aria-label="聊天审查状态"><option value="all">全部聊天</option><option value="pending">待确认</option><option value="done">已完成</option></select></div><div class="cards" id="chat" role="region" aria-label="ChatGPT 聊天" tabindex="0"></div><div id="chat-sync" class="chat-sync" role="status">正在读取应用聊天列表…</div></section></div>
+<div class="board" id="task-board"><section class="column running"><div class="column-head"><h2><i class="dot"></i>运行中 <span class="count" id="running-count">0</span></h2><p>Work / Codex · 结束后自动待审查</p></div><div class="cards" id="running" role="region" aria-label="运行中任务" tabindex="0"></div></section><section class="column pending"><div class="column-head"><h2><i class="dot"></i>待审查 <span class="count" id="pending-count">0</span></h2><p>默认最近 7 天对话 · 不自动完成</p></div><div class="completion-controls"><label><input type="checkbox" id="all-pending">显示全部</label></div><div class="cards" id="pending" role="region" aria-label="待审查任务" tabindex="0"></div></section><section class="column done"><div class="column-head"><h2><i class="dot"></i>已完成 <span class="count" id="done-count">0</span></h2><p>默认最近 7 天确认 · 最近对话优先</p></div><div class="completion-controls"><label><input type="checkbox" id="all-completed">显示全部</label></div><div class="cards" id="done" role="region" aria-label="已完成任务" tabindex="0"></div></section><section class="column chat"><div class="column-head"><h2><i class="dot"></i>聊天 <span class="count" id="chat-count">0</span></h2><p>ChatGPT Chat · 当前账号</p></div><div class="chat-controls"><select id="chat-status" aria-label="聊天审查状态"><option value="all">全部聊天</option><option value="pending">待确认</option><option value="done">已完成</option></select></div><div class="cards" id="chat" role="region" aria-label="ChatGPT 聊天" tabindex="0"></div><div id="chat-sync" class="chat-sync" role="status">正在读取应用聊天列表…</div></section></div>
 <div id="toast" role="status"><span id="toast-text"></span><button id="undo">撤销</button><button id="toast-close" aria-label="关闭提示">×</button></div>
 <div class="footer"><span id="sync">正在连接任务列表…</span><span>确认只改变任务分类</span></div>
 </main>
@@ -26,12 +36,16 @@
   let serial = 0, initialized = false, mode = null, interval = null;
   let actionError = '', syncError = '', lastSignature = '';
   let archiveRequest = null, archiving = false;
-  let chatConnection = 'connecting';
+  let chatConnection = 'connecting', currentView = 'work';
+  const viewFilters = {work: null, chat: {search: '', focus: 'all', sort: 'recent'}};
+  const scrollPositions = new Map(), notePositions = new Map();
+  let workScrollLeft = 0;
   const legacyMessage = '当前仍是旧连接，尚不能读取 Chat。请在其他任务结束后，完全退出应用并重新启动；只重新打开任务中心不会更新旧连接。';
   const waits = new Map(), busy = new Set(), localReviews = new Map();
   const drafts = new Map(), editors = new Set();
   const $ = id => document.getElementById(id);
   const preferenceKey = 'task-review-center:view:v1';
+  const conversationAt = task => Number.isFinite(task.lastConversationAt) ? task.lastConversationAt : null;
   const allTasks = () => [...state.tasks, ...state.chats];
   const findTask = id => allTasks().find(t => t.id === id);
 
@@ -137,8 +151,37 @@
     catch (e) { syncError = e.message; showErrors(); }
     finally { loading = false; $('refresh').disabled = false; }
   }
+  const activeList = id => (id === 'chat') === (currentView === 'chat');
+  function currentFilters() { return {search: $('search').value, focus: $('focus').value, sort: $('sort').value}; }
+  function replaceCards(id, fragment) {
+    if (activeList(id)) scrollPositions.set(id, $(id).scrollTop);
+    $(id).replaceChildren(fragment);
+    if (activeList(id)) $(id).scrollTop = scrollPositions.get(id) || 0;
+  }
+  function switchView(view) {
+    if (view === currentView) return;
+    for (const el of document.querySelectorAll('textarea[data-key]')) if (activeList(el.closest('.cards').id)) notePositions.set(el.dataset.key, [el.selectionStart, el.selectionEnd, el.scrollTop]);
+    viewFilters[currentView] = currentFilters();
+    for (const id of ['running', 'pending', 'done', 'chat']) if (activeList(id)) scrollPositions.set(id, $(id).scrollTop);
+    if (currentView === 'work') workScrollLeft = $('task-board').scrollLeft;
+    currentView = view; $('app').dataset.view = view;
+    for (const [id, value] of Object.entries(viewFilters[view])) $(id).value = value;
+    $('view-title').textContent = view === 'chat' ? '聊天任务' : '任务中心';
+    $('chat-view').hidden = view === 'chat'; $('work-view').hidden = view === 'work';
+    $('search').placeholder = view === 'chat' ? '搜索聊天任务' : '搜索任务';
+    $('search').setAttribute('aria-label', $('search').placeholder);
+    $('sort').setAttribute('aria-label', view === 'chat' ? '聊天排序' : '待审查排序');
+    for (const id of ['running', 'pending', 'done', 'chat']) if (activeList(id)) $(id).scrollTop = scrollPositions.get(id) || 0;
+    $('task-board').scrollLeft = view === 'work' ? workScrollLeft : 0;
+    const savedScroll = new Map([...scrollPositions].filter(([id]) => activeList(id)));
+    render(true);
+    for (const [id, top] of savedScroll) { scrollPositions.set(id, top); $(id).scrollTop = top; }
+    savePreferences(); $('view-title').focus({preventScroll: true});
+  }
+  $('chat-view').onclick = () => switchView('chat');
+  $('work-view').onclick = () => switchView('work');
   function savePreferences() {
-    try { localStorage.setItem(preferenceKey, JSON.stringify({search: $('search').value, project: $('project').value, archived: $('archived').checked, focus: $('focus').value, sort: $('sort').value, 'chat-status': $('chat-status').value})); } catch (_) { /* Sandboxed hosts may not expose storage. */ }
+    try { localStorage.setItem(preferenceKey, JSON.stringify({... (currentView === 'work' ? currentFilters() : viewFilters.work), project: $('project').value, archived: $('archived').checked, 'chat-status': $('chat-status').value})); } catch (_) { /* Sandboxed hosts may not expose storage. */ }
   }
   function restorePreferences() {
     try {
@@ -179,7 +222,7 @@
   }
   function keyed(el, task, kind) { el.dataset.key = task.id + ':' + kind; return el; }
   function card(task) {
-    const done = task.review.status === 'done', chat = task.source === 'chatgpt', box = node('article', 'card' + (done ? ' is-done' : ''));
+    const running = task.execution?.state === 'running', done = !running && task.review.status === 'done', chat = task.source === 'chatgpt', box = node('article', 'card' + (done ? ' is-done' : ''));
     const top = node('div', 'card-top'), title = keyed(node('button', 'title'), task, 'title');
     title.setAttribute('aria-label', '打开聊天：' + task.title);
     if (chat) title.title = '打开 ChatGPT 原对话链接，按应用的链接设置打开';
@@ -190,10 +233,13 @@
     star.onclick = () => mutate(task.id, 'update_task', {starred: !task.review.starred});
     top.append(title, star);
     const meta = node('div', 'meta');
-    meta.append(node('span', 'project-name', task.project + (task.archived ? ' · 已归档' : '')), node('span', 'date', age(done ? task.review.confirmedAt : task.updatedAt)));
+    meta.append(node('span', 'project-name', task.project + (task.archived ? ' · 已归档' : '')), node('span', 'date', chat ? age(task.updatedAt) : conversationAt(task) == null ? '对话时间暂不可确认' : '最近对话 ' + age(conversationAt(task))));
     box.append(top, meta);
     if (chat) box.append(node('div', 'review-label', done ? '已完成' : '待确认'));
-    if (changed(task)) box.append(node('div', 'changed', '确认后有新进展'));
+    if (running) box.append(node('div', 'execution-label', '正在执行 · 结束后自动进入待审查'));
+    else if (!chat && task.execution?.state === 'unknown') box.append(node('div', 'execution-label', '运行状态暂不可确认'));
+    else if (!chat && !done && task.execution?.interrupted) box.append(node('div', 'execution-label', '运行已中断 · 请检查结果'));
+    if (!running && changed(task)) box.append(node('div', 'changed', '确认后有新进展'));
     if (task.review.note && !editors.has(task.id)) box.append(node('p', 'note-preview', task.review.note));
     if (editors.has(task.id)) {
       const textarea = keyed(node('textarea', 'note-input'), task, 'note');
@@ -211,39 +257,42 @@
     const actions = node('div', 'actions');
     const note = keyed(node('button', 'text-button', task.review.note ? '编辑备注' : '审查备注'), task, 'edit-note');
     note.onclick = () => { editors.add(task.id); render(); [...document.querySelectorAll('[data-key]')].find(el => el.dataset.key === task.id + ':note')?.focus(); };
-    const button = keyed(node('button', 'action', done ? (chat ? '移回待确认' : '移回待审查') : '确认'), task, 'action');
-    button.disabled = busy.has(task.id); button.setAttribute('aria-label', (done ? '移回待审查：' : '确认：') + task.title);
+    const button = keyed(node('button', 'action', running ? '运行中' : done ? (chat ? '移回待确认' : '移回待审查') : '确认'), task, 'action');
+    button.disabled = running || busy.has(task.id); button.setAttribute('aria-label', (done ? '移回待审查：' : '确认：') + task.title);
     button.onclick = () => mutate(task.id, 'set_review', {status: done ? 'pending' : 'done'});
     note.disabled = busy.has(task.id);
     const group = node('div', 'action-group');
-    if (!chat && !done && !task.archived) {
+    if (!chat && !running && !done && !task.archived) {
       const archive = keyed(node('button', 'action archive-task', '归档'), task, 'archive');
       archive.disabled = busy.has(task.id); archive.setAttribute('aria-label', '归档：' + task.title);
       archive.onclick = () => openArchive(task.id); group.append(archive);
     }
     group.append(button); actions.append(note, group); box.append(actions); return box;
   }
-  function render() {
+  function render(switching = false) {
     const active = document.activeElement, key = active?.dataset?.key;
     const selection = active?.tagName === 'TEXTAREA' ? [active.selectionStart, active.selectionEnd] : null;
-    const notePositions = new Map([...document.querySelectorAll('textarea[data-key]')].map(el => [el.dataset.key, [el.selectionStart, el.selectionEnd, el.scrollTop]]));
+    if (!switching) for (const el of document.querySelectorAll('textarea[data-key]')) if (activeList(el.closest('.cards').id)) notePositions.set(el.dataset.key, [el.selectionStart, el.selectionEnd, el.scrollTop]);
     const query = $('search').value.trim().toLocaleLowerCase(), project = $('project').value, includeArchived = $('archived').checked, focus = $('focus').value;
     let tasks = state.tasks.filter(t => (includeArchived || !t.archived) && (!project || t.cwd === project) && (!query || (t.title + ' ' + t.project + ' ' + (t.review.note || '')).toLocaleLowerCase().includes(query)));
     if (focus === 'starred') tasks = tasks.filter(t => t.review.starred);
-    if (focus === 'stale') tasks = tasks.filter(t => t.review.status === 'pending' && Date.now() / 1000 - t.updatedAt >= 7 * 86400);
+    if (focus === 'stale') tasks = tasks.filter(t => t.review.status === 'pending' && conversationAt(t) != null && Date.now() / 1000 - conversationAt(t) > 7 * 86400);
     if (focus === 'changed') tasks = tasks.filter(changed);
-    $('clear-filters').hidden = !query && !project && !includeArchived && focus === 'all' && $('sort').value === 'recent';
-    for (const status of ['pending', 'done']) {
-      const items = tasks.filter(t => t.review.status === status);
-      items.sort((a, b) => Number(!!b.review.starred) - Number(!!a.review.starred) || (status === 'done' ? (b.review.confirmedAt || 0) - (a.review.confirmedAt || 0) : $('sort').value === 'oldest' ? a.updatedAt - b.updatedAt : b.updatedAt - a.updatedAt) || a.id.localeCompare(b.id));
+    $('clear-filters').hidden = !query && (currentView === 'chat' || (!project && !includeArchived)) && focus === 'all' && (currentView === 'work' || $('sort').value === 'recent');
+    const now = Date.now() / 1000, showAll = $('all-completed').checked, showAllPending = $('all-pending').checked;
+    let displayedTasks = 0;
+    for (const status of ['running', 'pending', 'done']) {
+      const items = tasks.filter(t => (t.execution?.state === 'running' ? 'running' : t.review.status) === status && (status !== 'pending' || showAllPending || conversationAt(t) == null || conversationAt(t) >= now - 7 * 86400) && (status !== 'done' || showAll || (t.review.confirmedAt != null && t.review.confirmedAt >= now - 7 * 86400)));
+      displayedTasks += items.length;
+      items.sort((a, b) => Number(!!b.review.starred) - Number(!!a.review.starred) || (conversationAt(b) ?? -1) - (conversationAt(a) ?? -1) || a.id.localeCompare(b.id));
       $(status + '-count').textContent = items.length;
       const fragment = document.createDocumentFragment(); for (const task of items) fragment.append(card(task));
       if (!items.length) {
         const empty = node('div', 'empty');
-        empty.append(node('b', '', status === 'pending' ? '○' : '✓'), node('span', '', tasks.length !== state.tasks.length ? '没有符合筛选条件的任务' : status === 'pending' ? '这里暂时没有待审查任务' : '确认完成的任务会出现在这里'));
+        empty.append(node('b', '', status === 'running' ? '◉' : status === 'pending' ? '○' : '✓'), node('span', '', tasks.length !== state.tasks.length ? '没有符合筛选条件的任务' : status === 'running' ? '当前没有正在运行的任务' : status === 'pending' ? (showAllPending ? '这里暂时没有待审查任务' : '最近 7 天没有待审查任务，可勾选上方显示全部') : showAll ? '确认完成的任务会出现在这里' : '最近 7 天没有已完成任务，可勾选上方查看全部'));
         fragment.append(empty);
       }
-      const scroll = $(status).scrollTop; $(status).replaceChildren(fragment); $(status).scrollTop = scroll;
+      replaceCards(status, fragment);
     }
     const chatStatus = $('chat-status').value;
     let chats = state.chats.filter(t => (!query || (t.title + ' ' + (t.review.note || '')).toLocaleLowerCase().includes(query)) && (chatStatus === 'all' || t.review.status === chatStatus));
@@ -253,19 +302,20 @@
     chats.sort((a,b) => Number(!!b.review.starred) - Number(!!a.review.starred) || ($('sort').value === 'oldest' ? a.updatedAt - b.updatedAt : b.updatedAt - a.updatedAt) || a.id.localeCompare(b.id));
     const chatAvailable = chatConnection === 'ready' && !!state.chatSource;
     $('chat-count').textContent = chatAvailable ? chats.length : '—';
-    if (chatStatus !== 'all') $('clear-filters').hidden = false;
+    if (currentView === 'chat' && chatStatus !== 'all') $('clear-filters').hidden = false;
     const archivedCount = state.tasks.filter(t => t.archived).length;
     const chatTotal = chatAvailable ? state.chats.length + ' 个聊天' + (state.chatSyncError ? '（上次记录）' : '') : '聊天尚未连接';
-    $('catalog-summary').textContent = '已登记 ' + state.tasks.length + ' 个任务 · ' + chatTotal + ' · 其中归档 ' + archivedCount + ' 个任务';
-    const filters = [];
+    $('catalog-summary').textContent = currentView === 'chat' ? chatTotal + ' · 当前账号' : '已登记 ' + state.tasks.length + ' 个任务 · 其中归档 ' + archivedCount + ' 个任务';
+    const filters = currentView === 'chat' ? [] : [showAllPending ? '待审查：全部' : '待审查：最近 7 天对话', showAll ? '已完成：全部' : '已完成：最近 7 天确认'];
+    if (currentView === 'work' && (showAll || showAllPending)) $('clear-filters').hidden = false;
     if (query) filters.push('搜索“' + $('search').value.trim() + '”');
-    if (project) filters.push('项目：' + $('project').selectedOptions[0].textContent + '（仅任务）');
-    if (includeArchived) filters.push('包含归档');
+    if (currentView === 'work' && project) filters.push('项目：' + $('project').selectedOptions[0].textContent + '（仅任务）');
+    if (currentView === 'work' && includeArchived) filters.push('包含归档');
     if (focus !== 'all') filters.push($('focus').selectedOptions[0].textContent);
-    if (chatStatus !== 'all') filters.push('聊天：' + $('chat-status').selectedOptions[0].textContent);
-    if ($('sort').value !== 'recent') filters.push('最久未审优先');
+    if (currentView === 'chat' && chatStatus !== 'all') filters.push('聊天：' + $('chat-status').selectedOptions[0].textContent);
+    if (currentView === 'chat' && $('sort').value !== 'recent') filters.push('最久未审优先');
     $('filter-summary').hidden = !filters.length;
-    $('filter-summary').textContent = '当前视图：' + filters.join(' · ') + ' · 显示 ' + tasks.length + ' 个任务' + (chatAvailable ? '、' + chats.length + ' 个聊天' : '；聊天尚未连接');
+    $('filter-summary').textContent = '当前视图：' + filters.join(' · ') + ' · ' + (currentView === 'chat' ? (chatAvailable ? '显示 ' + chats.length + ' 个聊天' : '聊天尚未连接') : '显示 ' + displayedTasks + ' 个任务');
     const chatFragment = document.createDocumentFragment();
     for (const task of chats) chatFragment.append(card(task));
     if (!chats.length) {
@@ -273,7 +323,7 @@
       empty.append(node('b', '', chatConnection === 'legacy' ? '!' : '◌'), node('span', '', chatConnection === 'legacy' ? '旧连接尚未更新，请查看下方提示' : state.chatSyncError ? '聊天列表暂时不可用，请查看下方提示' : state.chats.length ? '没有符合条件的聊天' : state.chatSource ? '应用同步的新 Chat 对话会出现在这里' : '正在连接 Chat 聊天列表'));
       chatFragment.append(empty);
     }
-    const chatScroll = $('chat').scrollTop; $('chat').replaceChildren(chatFragment); $('chat').scrollTop = chatScroll;
+    replaceCards('chat', chatFragment);
     for (const el of document.querySelectorAll('textarea[data-key]')) {
       const saved = notePositions.get(el.dataset.key);
       if (saved) { el.setSelectionRange(saved[0], saved[1]); el.scrollTop = saved[2]; }
@@ -313,7 +363,7 @@
   function openArchive(id) {
     if (archiveRequest || busy.has(id)) return;
     const task = state.tasks.find(t => t.id === id);
-    if (!task || task.archived || task.review.status !== 'pending') return;
+    if (!task || task.archived || task.review.status !== 'pending' || task.execution?.state === 'running') return;
     if (drafts.has(id) && drafts.get(id) !== (task.review.note || '')) {
       error('还有未保存的审查备注，请先保存或取消编辑，再归档。'); return;
     }
@@ -367,8 +417,13 @@
       buttons[(index + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length].focus();
     }
   });
-  for (const id of ['search', 'project', 'archived', 'focus', 'sort', 'chat-status']) $(id).addEventListener(id === 'search' ? 'input' : 'change', () => { savePreferences(); render(); });
-  $('clear-filters').onclick = () => { $('search').value = ''; $('project').value = ''; $('archived').checked = false; $('focus').value = 'all'; $('sort').value = 'recent'; $('chat-status').value = 'all'; savePreferences(); render(); };
+  for (const id of ['search', 'project', 'archived', 'focus', 'sort', 'chat-status', 'all-completed', 'all-pending']) $(id).addEventListener(id === 'search' ? 'input' : 'change', () => { if (id === 'focus' && currentView === 'work' && $('focus').value === 'stale') $('all-pending').checked = true; savePreferences(); render(); });
+  $('clear-filters').onclick = () => {
+    $('search').value = ''; $('focus').value = 'all'; $('sort').value = 'recent';
+    if (currentView === 'work') { $('project').value = ''; $('archived').checked = false; $('all-completed').checked = false; $('all-pending').checked = false; }
+    else $('chat-status').value = 'all';
+    savePreferences(); render();
+  };
   $('refresh').onclick = () => refresh(true);
   $('undo').onclick = () => { if (undo) mutate(undo.threadId, 'undo_review', {token: undo.token, expectedRevision: undo.expectedRevision}); };
   $('toast-close').onclick = () => { $('toast').style.display = 'none'; };

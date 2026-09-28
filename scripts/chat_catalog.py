@@ -1,4 +1,5 @@
 """Read only the desktop's Chat directory metadata, never messages or credentials."""
+import atexit
 import json
 from contextlib import closing
 import os
@@ -14,16 +15,47 @@ UUID = re.compile(r'^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$', re.I)
 
 
 class ChatCatalog:
-    def __init__(self, database=None, global_state=None):
+    def __init__(self, database=None, global_state=None, account_reader=None):
         self.database = Path(database or os.environ.get('TASK_REVIEW_CHAT_DB',
                             str(Path.home() / '.codex/sqlite/codex-dev.db')))
         self.global_state = Path(global_state or os.environ.get('TASK_REVIEW_CHAT_GLOBAL_STATE',
                                 str(Path.home() / '.codex/.codex-global-state.json')))
+        self.account_core = None
+        # Explicit offline catalogs must never consult the real user's account.
+        configured = database is not None or global_state is not None or any(
+            key in os.environ for key in ('TASK_REVIEW_CHAT_DB', 'TASK_REVIEW_CHAT_GLOBAL_STATE'))
+        self.account_reader = account_reader if account_reader is not None else (
+            None if configured else self.official_account)
+
+    def official_account(self):
+        # The desktop removed mcp-extension-sidebar-catalog on restart/update.
+        # Ask its official core for the active account instead of guessing from
+        # cached sidebar keys, which can still contain a previous account.
+        if self.account_core is None:
+            from server import Core
+            self.account_core = Core()
+            atexit.register(self.account_core.close)
+        core = self.account_core
+        with core.mutex:
+            try:
+                core.connect()
+                result = core.call('account/read', {'refreshToken': False})
+                account = result.get('account') if isinstance(result, dict) else None
+                routing = result.get('workspaceRouting') if isinstance(result, dict) else None
+                if not isinstance(account, dict) or account.get('type') != 'chatgpt' or not isinstance(routing, dict):
+                    raise ValueError('No active ChatGPT account')
+                return routing.get('chatgptAccountId')
+            except (OSError, ValueError, RuntimeError):
+                core.close()
+                raise ValueError('暂时无法读取当前聊天账号，已保留记录，请稍后刷新。') from None
 
     def account(self):
         try:
-            atoms = json.loads(self.global_state.read_text())['electron-persisted-atom-state']
-            account = atoms['mcp-extension-sidebar-catalog']['accountId']
+            if self.account_reader is not None:
+                account = self.account_reader()
+            else:
+                atoms = json.loads(self.global_state.read_text())['electron-persisted-atom-state']
+                account = atoms['mcp-extension-sidebar-catalog']['accountId']
             if not isinstance(account, str) or not UUID.fullmatch(account):
                 raise ValueError()
             return account

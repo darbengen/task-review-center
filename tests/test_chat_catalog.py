@@ -73,6 +73,36 @@ class ChatTests(unittest.TestCase):
             self.assertEqual(self.chat.snapshot()['tasks'], [])
             self.assertTrue(self.chat.snapshot()['syncError'])
 
+    def test_official_account_replaces_removed_sidebar_account_field(self):
+        self.fixture.global_state.write_text('{}')
+        catalog = ChatCatalog(self.fixture.database, self.fixture.global_state,
+                              account_reader=lambda: ACCOUNT_A)
+        tasks, source = catalog.read()
+        self.assertEqual(source['accountId'], ACCOUNT_A)
+        self.assertEqual(len(tasks), 1)
+
+    def test_official_account_wins_over_stale_sidebar_cache(self):
+        self.fixture.add(CHAT_B, account=ACCOUNT_B)
+        catalog = ChatCatalog(self.fixture.database, self.fixture.global_state,
+                              account_reader=lambda: ACCOUNT_B)
+        tasks, source = catalog.read()
+        self.assertEqual(source['accountId'], ACCOUNT_B)
+        self.assertEqual({t['conversationId'] for t in tasks}, {CHAT_B})
+
+    def test_unknown_official_account_never_falls_back_to_cached_account(self):
+        for account in (None, '', 'invalid'):
+            catalog = ChatCatalog(self.fixture.database, self.fixture.global_state,
+                                  account_reader=lambda: account)
+            with self.subTest(account=account), self.assertRaises(ValueError):
+                catalog.read()
+
+    def test_official_account_switch_during_read_is_rejected(self):
+        accounts = iter([ACCOUNT_A, ACCOUNT_B])
+        catalog = ChatCatalog(self.fixture.database, self.fixture.global_state,
+                              account_reader=lambda: next(accounts))
+        with self.assertRaisesRegex(ValueError, '切换'):
+            catalog.read()
+
     def test_schema_failure_preserves_previous_account_cache_and_recovers(self):
         self.chat.refresh()
         self.fixture.execute('ALTER TABLE local_thread_catalog RENAME TO renamed_catalog')

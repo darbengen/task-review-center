@@ -39,7 +39,7 @@ def run(path):
     expected=base64.b64encode(hashlib.sha1((key+'258EAFA5-E914-47DA-95CA-C5AB0DC85B11').encode()).digest()).decode()
     headers=dict(line.decode().split(':',1) for line in header.split(b'\r\n')[1:] if b':' in line)
     accept=next((v.strip() for k,v in headers.items() if k.lower()=='sec-websocket-accept'),None)
-    if b' 101 ' not in header.split(b'\r\n')[0] or accept!=expected:raise ConnectionError('Core WebSocket handshake rejected')
+    if b' 101 ' not in header.split(b'\r\n')[0] or accept!=expected:raise ValueError('Core WebSocket handshake rejected')
     sock.settimeout(None)
     poll=selectors.DefaultSelector();poll.register(sock,selectors.EVENT_READ,'socket');poll.register(sys.stdin,selectors.EVENT_READ,'stdin')
     input_buffer=b''; fragments=b''
@@ -77,4 +77,8 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--socket',required=True);args=parser.parse_args()
     try:run(args.socket)
     except Exception as error:
-        print('Core connection failed: '+type(error).__name__,file=sys.stderr);sys.exit(1)
+        # Distinguish dead transports from permission/protocol rejection. The
+        # parent may recover the former but must not bypass the latter.
+        unavailable=isinstance(error,(ConnectionError,TimeoutError,FileNotFoundError))
+        print('Core connection failed: '+type(error).__name__,file=sys.stderr)
+        sys.exit(74 if unavailable else 78)

@@ -36,6 +36,7 @@ class LegacyEntryTests(unittest.TestCase):
                 publish(root)
             release('compat-v1')
             Store(state).sync([{'id': 'work-fixture', 'title': 'Work fixture', 'project': 'fixture', 'cwd': '/tmp/fixture', 'updatedAt': 1, 'archived': False}])
+            Store(state).mark('work-fixture', 'done', 0)
             chat = ChatFixture(temp)
             env = dict(os.environ, TASK_REVIEW_STATE_DIR=str(state), TASK_REVIEW_CORE_SOCKET=str(folder / 'absent.sock'),
                        TASK_REVIEW_CHAT_DB=str(chat.database), TASK_REVIEW_CHAT_GLOBAL_STATE=str(chat.global_state))
@@ -72,12 +73,13 @@ class LegacyEntryTests(unittest.TestCase):
                 process.stdin.flush()
                 snapshot = tool('list_tasks', {'refresh': True})['structuredContent']
                 self.assertEqual(len(snapshot['chats']), 1)
-                tool('set_review', {'threadId': 'work-fixture', 'status': 'done', 'expectedRevision': 0})
+                tool('update_task', {'threadId': 'work-fixture', 'note': 'keep work note offline', 'expectedRevision': 1})
                 tool('update_task', {'threadId': chat.key(), 'note': 'keep chat note', 'expectedRevision': 0})
                 release('compat-v2')
                 actual = tool('list_tasks', {'refresh': True})
                 self.assertEqual(actual['_meta']['taskReviewVersion'], 'compat-v2', 'cached server.py command must enter the stable launcher')
                 self.assertEqual(actual['structuredContent']['tasks'][0]['review']['status'], 'done')
+                self.assertEqual(actual['structuredContent']['tasks'][0]['review']['note'], 'keep work note offline')
                 self.assertEqual(actual['structuredContent']['chats'][0]['review']['note'], 'keep chat note')
                 ui = request('resources/read', {'uri': 'ui://task-review-center/board.html'})['contents'][0]['text']
                 self.assertIn('<!-- compat-v2 -->', ui)
